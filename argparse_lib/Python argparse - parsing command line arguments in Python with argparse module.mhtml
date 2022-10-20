@@ -1,0 +1,975 @@
+From: <Saved by Blink>
+Snapshot-Content-Location: https://zetcode.com/python/argparse/
+Subject: Python argparse - parsing command line arguments in Python with argparse module
+Date: Wed, 31 Aug 2022 08:14:04 -0000
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----MultipartBoundary--OXqRTnEO886aRuClfoo5FnkBIoXDCEfeHS5OOTWFkP----"
+
+
+------MultipartBoundary--OXqRTnEO886aRuClfoo5FnkBIoXDCEfeHS5OOTWFkP----
+Content-Type: text/html
+Content-ID: <frame-AD727C30E7269ED8D4CD5D90F4CB5C7B@mhtml.blink>
+Content-Transfer-Encoding: quoted-printable
+Content-Location: https://zetcode.com/python/argparse/
+
+<!DOCTYPE html><html lang=3D"en"><head><meta http-equiv=3D"Content-Type" co=
+ntent=3D"text/html; charset=3DUTF-8">
+<title>Python argparse - parsing command line arguments in Python with argp=
+arse module</title>
+<link rel=3D"stylesheet" href=3D"https://zetcode.com/cfg/style.css" type=3D=
+"text/css">
+
+<meta name=3D"viewport" content=3D"width=3Ddevice-width, initial-scale=3D1"=
+>
+<meta name=3D"keywords" content=3D"argparse, Python, tutorial, parsing argu=
+ments">
+<meta name=3D"description" content=3D"Python argparse tutorial shows how to=
+ parse arguments=20
+in Python with argparse module.">
+<meta name=3D"author" content=3D"Jan Bodnar">
+
+
+
+
+</head>
+
+<body>
+
+<header>
+
+<div>
+<a href=3D"https://zetcode.com/" title=3D"Home">ZetCode</a>
+</div>
+
+<nav>
+    <a title=3D"All tutorials" href=3D"https://zetcode.com/all/">All</a>
+    <a title=3D"Go tutorials" href=3D"https://zetcode.com/all/#go">Go</a>
+    <a title=3D"Python tutorials" href=3D"https://zetcode.com/all/#python">=
+Python</a>
+    <a title=3D"C# tutorials" href=3D"https://zetcode.com/all/#csharp">C#</=
+a>
+    <a title=3D"Java tutorials" href=3D"https://zetcode.com/all/#java">Java=
+</a>
+    <a title=3D"JavaScript tutorials" href=3D"https://zetcode.com/all/#js">=
+JavaScript</a>
+    <a title=3D"Subscribe to ZetCode news" href=3D"http://zetcode.us13.list=
+-manage.com/subscribe?u=3D9def9ccd4c70dbbaf691f90fc&amp;id=3D6556210f80">Su=
+bscribe</a>
+</nav>
+
+</header>
+
+<div class=3D"container">
+
+<div class=3D"ltow">
+   =20
+<div id=3D"ebooks">
+
+<h2 class=3D"blu">Ebooks</h2>
+
+<ul>
+<li><a href=3D"https://zetcode.com/ebooks/advancedpyqt5/">PyQt5 ebook</a></=
+li>
+<li><a href=3D"https://zetcode.com/ebooks/tkinter/">Tkinter ebook</a></li>
+<li><a href=3D"https://zetcode.com/ebooks/sqlitepython/">SQLite Python</a><=
+/li>
+<li><a href=3D"https://zetcode.com/ebooks/advancedwxpython/">wxPython ebook=
+</a></li>
+<li><a href=3D"https://zetcode.com/ebooks/windowsapi/">Windows API ebook</a=
+></li>
+<li><a href=3D"https://zetcode.com/ebooks/advancedjavaswing/">Java Swing eb=
+ook</a></li>
+<li><a href=3D"https://zetcode.com/ebooks/javagames/">Java games ebook</a><=
+/li>
+<li><a href=3D"https://zetcode.com/ebooks/mysqljava/">MySQL Java ebook</a><=
+/li>
+</ul>
+
+</div>
+
+</div>
+
+
+<div class=3D"content">
+
+<h1>Python argparse</h1>
+
+<p class=3D"last_mod">
+last modified August 20, 2022
+</p>
+
+<p>
+Python argparse tutorial shows how to parse command line arguments in Pytho=
+n
+with argparse module.
+</p>
+
+<div class=3D"ad-top hor-fix-ad">
+
+<!-- horizontal-fixed-2020 -->
+<ins class=3D"adsbygoogle" style=3D"display:inline-block;width:728px;height=
+:90px" data-ad-client=3D"ca-pub-9706709751191532" data-ad-slot=3D"255011490=
+1"></ins>
+
+</div>
+
+<h2>Python argparse</h2>
+
+<p>
+The <code>argparse</code> module makes it easy to write user-friendly
+command-line interfaces. It parses the defined arguments from the
+<code>sys.argv</code>.=20
+</p>
+
+<p>
+The <code>argparse</code> module also automatically generates help and usag=
+e
+messages, and issues errors when users give the program invalid arguments.
+</p>
+
+<p>
+The <code>argparse</code> is a standard module; we do not need to install i=
+t.
+</p>
+
+<p>
+A parser is created with <code>ArgumentParser</code> and a new parameter is=
+=20
+added with <code>add_argument</code>. Arguments can be optional, required, =
+or=20
+positional.
+</p>
+
+<h2>Python argparse optional argument</h2>
+
+<p>
+The following example creates a simple argument parser.
+</p>
+
+<div class=3D"codehead">optional_arg.py</div>
+<pre class=3D"code">#!/usr/bin/python
+
+import argparse
+
+# help flag provides flag help
+# store_true actions stores argument as True
+
+parser =3D argparse.ArgumentParser()
+  =20
+parser.add_argument('-o', '--output', action=3D'store_true',=20
+    help=3D"shows output")
+
+args =3D parser.parse_args()
+
+if args.output:
+    print("This is some output")
+</pre>
+
+<p>
+The example adds one argument having two options: a short <code>-o</code> a=
+nd=20
+a long <code>--ouput</code>. These are optional arguments.
+</p>
+
+<pre class=3D"explanation">import argparse
+</pre>
+
+<p>
+The module is imported.
+</p>
+
+<pre class=3D"explanation">parser.add_argument('-o', '--output', action=3D'=
+store_true',=20
+    help=3D"shows output")
+</pre>
+
+<p>
+An argument is added with <code>add_argument</code>. The <code>action</code=
+>
+set to <code>store_true</code> will store the argument as <code>True</code>=
+, if present.
+The help option gives argument help.
+</p>
+
+<pre class=3D"explanation">args =3D parser.parse_args()
+</pre>
+
+<p>
+The arguments are parsed with <code>parse_args</code>. The parsed arguments=
+ are
+present as object attributes. In our case, there will be
+<code>args.output</code> attribute.
+</p>
+
+<pre class=3D"explanation">if args.output:
+    print("This is some output")
+</pre>
+
+<p>
+If the argument is present, we show some output.
+</p>
+
+<pre class=3D"compact">$ optional_arg.py -o
+This is some output
+$ optional_arg.py --output
+This is some output
+</pre>
+
+<p>
+We run the program with the <code>-o</code> and <code>--output</code>.
+</p>
+
+<pre class=3D"compact">$ optional_arg.py --help
+usage: optional_arg.py [-h] [-o]
+
+optional arguments:
+    -h, --help    show this help message and exit
+    -o, --output  shows output
+</pre>
+
+<p>
+We can show the program help.
+</p>
+
+<h2>Python argparse required argument</h2>
+
+<p>
+An argument is made required with the <code>required</code> option.
+</p>
+
+<div class=3D"codehead">required_arg.py</div>
+<pre class=3D"code">#!/usr/bin/python
+
+import argparse
+
+# required arg
+
+parser =3D argparse.ArgumentParser()
+  =20
+parser.add_argument('--name', required=3DTrue)
+
+args =3D parser.parse_args()
+
+print(f'Hello {args.name}')
+</pre>
+
+<p>
+The example must have the <code>name</code> option specified; otherwise
+it fails.
+</p>
+
+<pre class=3D"compact">$ required_arg.py --name Peter
+Hello Peter
+
+$ required_arg.py
+usage: required_arg.py [-h] --name NAME
+required_arg.py: error: the following arguments are required: --name
+</pre>
+
+
+<h2>Python argparse positional arguments</h2>
+
+<p>
+The following example works with positional arguments. They=20
+are created with <code>add_argument</code>.
+</p>
+
+<div class=3D"codehead">positional_arg.py</div>
+<pre class=3D"code">#!/usr/bin/python
+
+import argparse
+
+# positional args
+
+parser =3D argparse.ArgumentParser()
+  =20
+parser.add_argument('name')
+parser.add_argument('age')
+
+args =3D parser.parse_args()
+
+print(f'{args.name} is {args.age} years old')
+</pre>
+
+<p>
+The example expects two positional arguments: name and age.
+</p>
+
+<pre class=3D"compact">parser.add_argument('name')
+parser.add_argument('age')
+</pre>
+
+<p>
+Positional arguments are created without the dash prefix
+characters.
+</p>
+
+<pre class=3D"compact">$ positional_arg.py Peter 23
+Peter is 23 years old
+</pre>
+
+
+
+<h2>Python argparse dest</h2>
+
+<p>
+The <code>dest</code> option of the <code>add_argument</code> gives=20
+a name to the argument. If not given, it is inferred from the option.
+</p>
+
+<div class=3D"codehead">dest.py</div>
+<pre class=3D"code">#!/usr/bin/python
+
+import argparse
+import datetime
+
+# dest gives a different name to a flag
+
+parser =3D argparse.ArgumentParser()
+  =20
+parser.add_argument('-n', dest=3D'now', action=3D'store_true', help=3D"show=
+s now")
+
+args =3D parser.parse_args()
+
+# we can refer to the flag
+# by a new name
+if args.now:
+
+    now =3D datetime.datetime.now()
+    print(f"Now: {now}")
+</pre>
+
+<p>
+The program gives the <code>now</code> name to the <code>-n</code> argument=
+.
+</p>
+
+<pre class=3D"compact">$ ./dest.py -n
+Now: 2022-08-20 09:42:32.195881
+</pre>
+
+
+<div class=3D"ad-mid square-fix-ad">
+
+<!-- square-fixed-2020 -->
+<ins class=3D"adsbygoogle" style=3D"display:inline-block;width:300px;height=
+:250px" data-ad-client=3D"ca-pub-9706709751191532" data-ad-slot=3D"67753847=
+32"></ins>
+
+</div>
+
+<h2>Python argparse type</h2>
+
+<p>
+The <code>type</code> argument determines the argument type.
+</p>
+
+<div class=3D"codehead">rand_int.py</div>
+<pre class=3D"code">#!/usr/bin/python
+
+import argparse
+import random
+
+# type determines the type of the argument
+
+parser =3D argparse.ArgumentParser()
+  =20
+parser.add_argument('-n', type=3Dint, required=3DTrue,=20
+    help=3D"define the number of random integers")
+args =3D parser.parse_args()
+
+n =3D args.n
+
+for i in range(n):
+    print(random.randint(-100, 100))
+</pre>
+
+<p>
+The program shows n random integers from -100 to 100.=20
+</p>
+
+<pre class=3D"explanation">parser.add_argument('-n', type=3Dint, required=
+=3DTrue,=20
+    help=3D"define the number of random integers")
+</pre>
+
+<p>
+The <code>-n</code> option expects integer value and it is=20
+required.
+</p>
+
+<pre class=3D"compact">$ rand_int.py -n 3
+92
+-61
+-61
+</pre>
+
+
+<h2>Python argparse default</h2>
+
+<p>
+The <code>default</code> option specifies the default value,=20
+if the value is not given.
+</p>
+
+<div class=3D"codehead">power.py</div>
+<pre class=3D"code">#!/usr/bin/python
+
+import argparse
+
+# required defines a mandatory argument=20
+# default defines a default value if not specified
+
+parser =3D argparse.ArgumentParser()
+
+parser.add_argument('-b', type=3Dint, required=3DTrue, help=3D"defines the =
+base value")
+parser.add_argument('-e', type=3Dint, default=3D2, help=3D"defines the expo=
+nent value")
+args =3D parser.parse_args()
+
+val =3D 1
+
+base =3D args.b
+exp =3D args.e
+
+for i in range(exp):
+    val *=3D base
+
+print(val)
+</pre>
+
+<p>
+The example computes exponentiation. The exponent value is not required;=20
+if not given, the default will be 2.
+</p>
+
+<pre class=3D"compact">$ power.py -b 3
+9
+$ power.py -b 3 -e 3
+27
+</pre>
+
+
+<h2>Python argparse metavar</h2>
+
+<p>
+The <code>metavar</code> option gives a name to the=20
+expected value in error and help outputs.
+</p>
+
+<div class=3D"codehead">metavar.py</div>
+<pre class=3D"code">#!/usr/bin/python
+
+import argparse
+
+# metavar gives name to the expected value=20
+# in error and help outputs
+
+parser =3D argparse.ArgumentParser()
+  =20
+parser.add_argument('-v', type=3Dint, required=3DTrue, metavar=3D'value',=
+=20
+    help=3D"computes cube for the given value")
+args =3D parser.parse_args()
+
+print(args)
+
+val =3D args.v
+
+print(val * val * val)
+</pre>
+
+<p>
+The example names the expected value <code>value</code>. The default=20
+name is <code>V</code>.
+</p>
+
+<pre class=3D"compact">$ metavar.py -h
+usage: metavar.py [-h] -v value
+
+optional arguments:
+  -h, --help  show this help message and exit
+  -v value    computes cube for the given value
+</pre>
+
+<p>
+The given name is shown in the help output.
+</p>
+
+
+<h2>Python argparse append action</h2>
+
+<p>
+The <code>append</code> action allows to group repeating options.
+</p>
+
+<div class=3D"codehead">appending.py</div>
+<pre class=3D"code">#!/usr/bin/python
+
+import argparse
+
+# append action allows to group repeating
+# options
+
+parser =3D argparse.ArgumentParser()
+  =20
+parser.add_argument('-n', '--name', dest=3D'names', action=3D'append',=20
+    help=3D"provides names to greet")
+
+args =3D parser.parse_args()
+
+names =3D args.names
+
+for name in names:
+    print(f'Hello {name}!')
+</pre>
+
+<p>
+The example produces greeting messages to all names specified with the=20
+<code>n</code> or <code>name</code> options; they can be repeated multipile
+times.
+</p>
+
+<pre class=3D"compact">$ appending.py -n Peter -n Lucy --name Jane
+Hello Peter!
+Hello Lucy!
+Hello Jane!
+</pre>
+
+
+<h2>Python argparse nargs</h2>
+
+<p>
+The <code>nargs</code> specifies the number of command-line arguments that
+should be consumed.
+</p>
+
+<div class=3D"codehead">charseq.py</div>
+<pre class=3D"code">#!/usr/bin/python
+
+import argparse
+import sys
+
+# nargs sets the required number of argument values
+# metavar gives name to argument values in error and help output
+
+parser =3D argparse.ArgumentParser()
+parser.add_argument('chars', type=3Dstr, nargs=3D2, metavar=3D'c',
+                    help=3D'starting and ending character')
+
+args =3D parser.parse_args()
+
+try:
+    v1 =3D ord(args.chars[0])
+    v2 =3D ord(args.chars[1])
+
+except TypeError as e:
+
+    print('Error: arguments must be characters')
+    parser.print_help()
+    sys.exit(1)
+
+if v1 &gt; v2:
+    print('first letter must precede the second in alphabet')
+    parser.print_help()
+    sys.exit(1)
+</pre>
+
+<p>
+The example shows a sequence of characters from character one to character =
+two.
+It expects two arguments.
+</p>
+
+<pre class=3D"compact">parser.add_argument('chars', type=3Dstr, nargs=3D2, =
+metavar=3D'c',
+    help=3D'starting and ending character')
+</pre>
+
+<p>
+With <code>nargs=3D2</code> we specify that we expect two arguments.
+</p>
+
+<pre class=3D"compact">$ charseq.py e k
+e f g h i j k
+</pre>
+
+<p>
+The program shows a sequence of characters from e to k.
+</p>
+
+<p>
+Variable number of arguments can be set with the <code>*</code> character.
+</p>
+
+<div class=3D"codehead">var_args.py</div>
+<pre class=3D"code">#!/usr/bin/python
+
+import argparse
+
+# * nargs expects 0 or more arguments
+
+parser =3D argparse.ArgumentParser()
+parser.add_argument('num', type=3Dint, nargs=3D'*')
+args =3D parser.parse_args()
+
+print(f"The sum of values is {sum(args.num)}")
+</pre>
+
+<p>
+The example computes the sum of values; we can specify=20
+variable number of arguments to the program.
+</p>
+
+<pre class=3D"compact">$ var_args.py 1 2 3 4 5
+The sum of values is 15
+</pre>
+
+
+<h2>Python argparse choices</h2>
+
+<p>
+The <code>choices</code> option limits arguments=20
+to the given list.
+</p>
+
+<div class=3D"codehead">mytime.py</div>
+<pre class=3D"code">#!/usr/bin/python
+
+import argparse
+import datetime
+import time
+
+# choices limits argument values to the=20
+# given list
+
+parser =3D argparse.ArgumentParser()
+
+parser.add_argument('--now', dest=3D'format', choices=3D['std', 'iso', 'uni=
+x', 'tz'],
+                    help=3D"shows datetime in given format")
+
+args =3D parser.parse_args()
+fmt =3D args.format
+
+if fmt =3D=3D 'std':
+    print(datetime.date.today())
+elif fmt =3D=3D 'iso':
+    print(datetime.datetime.now().isoformat())
+elif fmt =3D=3D 'unix':
+    print(time.time())
+elif fmt =3D=3D 'tz':
+    print(datetime.datetime.now(datetime.timezone.utc))
+</pre>
+
+<p>
+In the example, the <code>now</code> option can accept the following=20
+values: <code>std</code>, <code>iso</code>, <code>unix</code>, or <code>tz<=
+/code>.
+</p>
+
+<pre class=3D"compact">$ ./mytime.py --now iso
+2022-08-20T09:44:22.437880
+$ ./mytime.py --now unix
+1660981466.8261166
+</pre>
+
+
+<h2>Head example</h2>
+
+<p>
+The following example mimics the Linux head command. It shows the n=20
+lines of a text from the beginning of the file.   =20
+</p>
+
+<div class=3D"codehead">words.txt</div>
+<pre class=3D"code">sky
+top
+forest
+wood
+lake
+wood
+</pre>
+
+<p>
+For the example, we have this small test file.
+</p>
+
+<div class=3D"codehead">head.py</div>
+<pre class=3D"code">#!/usr/bin/python
+
+import argparse
+from pathlib import Path
+
+# head command
+# working with positional arguments
+
+parser =3D argparse.ArgumentParser()
+  =20
+parser.add_argument('f', type=3Dstr, help=3D'file name')
+parser.add_argument('n', type=3Dint, help=3D'show n lines from the top')
+
+args =3D parser.parse_args()
+
+filename =3D args.f
+
+lines =3D Path(filename).read_text().splitlines()
+
+for line in lines[:args.n]:
+    print(line)=20
+</pre>
+
+<p>
+The example has two options: <code>f</code> for a file name and=20
+<code>-n</code> for the number of lines to show.
+</p>
+
+<pre class=3D"compact">$ head.py words.txt 3
+sky
+top
+forest
+</pre>
+
+
+<p>
+In this tutorial, we have worked with Python argparse module.
+</p>
+
+<div class=3D"ad-bot square-fix-ad">
+
+<!-- square-fixed-2020 -->
+<ins class=3D"adsbygoogle" style=3D"display:inline-block;width:300px;height=
+:250px" data-ad-client=3D"ca-pub-9706709751191532" data-ad-slot=3D"67753847=
+32"></ins>
+
+</div>
+
+<p>
+List <a href=3D"https://zetcode.com/all#python">all Python tutorials</a>.
+</p>
+
+
+</div> <!-- content -->
+
+<div class=3D"rtow">
+
+<div class=3D"vert-ad">
+
+<!-- vertical-2020 -->
+<ins class=3D"adsbygoogle" style=3D"display:block" data-ad-client=3D"ca-pub=
+-9706709751191532" data-ad-slot=3D"5880603481" data-ad-format=3D"auto" data=
+-full-width-responsive=3D"true"></ins>
+
+</div>
+
+<div class=3D"square-fix-ad">
+
+<!-- square-fixed-2020 -->
+<ins class=3D"adsbygoogle" style=3D"display:inline-block;width:300px;height=
+:250px" data-ad-client=3D"ca-pub-9706709751191532" data-ad-slot=3D"67753847=
+32"></ins>
+
+</div>
+
+</div>
+
+</div> <!-- container -->
+
+<footer>
+
+<nav>
+<a title=3D"Home page" href=3D"https://zetcode.com/">Home</a>=20
+<a title=3D"Follow on Facebook" href=3D"https://www.facebook.com/zetcode7/"=
+>Facebook</a>
+<a title=3D"Follow on Twitter" href=3D"https://twitter.com/janbodnar">Twitt=
+er</a>
+<a title=3D"Visit Github" href=3D"https://github.com/janbodnar">Github</a>
+<a title=3D"Subscribe to ZetCode news" href=3D"http://zetcode.us13.list-man=
+age.com/subscribe?u=3D9def9ccd4c70dbbaf691f90fc&amp;id=3D6556210f80">Subscr=
+ibe</a>
+<a title=3D"Privacy policy" href=3D"https://zetcode.com/privacy">Privacy</a=
+>=20
+</nav>
+
+<div>
+<span>=C2=A9 2007 - 2022 Jan Bodnar</span>
+<span>admin(at)zetcode.com</span>
+</div>
+
+</footer>
+
+
+
+
+</body></html>
+------MultipartBoundary--OXqRTnEO886aRuClfoo5FnkBIoXDCEfeHS5OOTWFkP----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: https://zetcode.com/cfg/style.css
+
+@charset "utf-8";
+
+body { font-family: georgia; font-size: 1.1rem; line-height: 1.6em; backgro=
+und: rgb(54, 57, 62); text-align: center; margin: 0px; }
+
+hr { width: 60%; border: 1px solid rgb(98, 149, 189); border-radius: 5px; m=
+argin-top: 2em; margin-bottom: 2em; }
+
+.note { border-radius: 4px; background-color: rgb(217, 232, 244); padding: =
+15px 12px; margin-bottom: 1em; }
+
+.all { color: royalblue; font-weight: bold; }
+
+code { font-family: Consolas; }
+
+.blu { color: rgb(0, 153, 247); }
+
+pre { font-family: Consolas, monospace; font-size: 10pt; overflow: auto; }
+
+caption { text-align: left; font-style: italic; }
+
+a { color: rgb(0, 153, 247); }
+
+ul { line-height: 1.7em; }
+
+.explanation { line-height: 1.5; padding: 5px 0px 5px 10px; border-radius: =
+4px; background: rgb(237, 239, 244); }
+
+img { object-fit: cover; }
+
+img.medium { width: 75%; height: 75%; }
+
+figcaption { color: rgb(123, 112, 112); }
+
+figure { margin: 0px; max-width: 700px; display: inline-block; }
+
+.table { margin-top: 15px; margin-bottom: 20px; color: rgb(123, 112, 112); =
+}
+
+.code { line-height: 1.4; margin-top: 0px; padding: 10px 0px 10px 10px; bac=
+kground: rgb(237, 239, 244); border-bottom-left-radius: 4px; border-bottom-=
+right-radius: 4px; }
+
+.codehead { font-family: Consolas; font-weight: 600; color: rgb(89, 154, 96=
+); background: rgb(213, 232, 215); border-top-left-radius: 4px; border-top-=
+right-radius: 4px; padding: 4px 15px; margin-bottom: 0px; }
+
+.center { text-align: center; }
+
+.gray { background-color: rgb(239, 239, 239); }
+
+table { border-top: 1px solid rgb(153, 153, 153); border-left: 1px solid rg=
+b(153, 153, 153); border-collapse: collapse; }
+
+tr:nth-child(2n+1) { background: rgb(239, 239, 239); }
+
+td, th { border-right: 1px solid rgb(153, 153, 153); border-bottom: 1px sol=
+id rgb(153, 153, 153); }
+
+th { padding: 8px; font-family: Georgia; font-size: 1em; background: url("/=
+img/cmn/stripe.jpg"); }
+
+td { font-size: 1em; padding: 5px; }
+
+.keyword { color: rgb(7, 70, 133); }
+
+.last_mod { font-style: italic; }
+
+.compact { line-height: 1.3; }
+
+.fb-like { padding-right: 1em; }
+
+.twitter { display: inline-block; }
+
+#ebooks ul { list-style-type: none; padding-left: 0px; }
+
+nav a { margin-right: 0.5em; }
+
+header nav { background-color: rgb(46, 49, 54); padding: 10px; }
+
+header { text-align: center; background: rgb(30, 33, 37); padding-top: 8px;=
+ }
+
+header div a[title=3D"Home"] { font-family: georgia; text-align: center; fo=
+nt-weight: bold; text-decoration: none; font-size: 2em; }
+
+header div { padding-top: 5px; padding-bottom: 5px; }
+
+header div a { padding: 0px 15px; }
+
+footer { padding: 15px; background-color: rgb(30, 33, 37); color: white; }
+
+footer div { font-size: 0.8em; }
+
+footer div span { margin-right: 1em; }
+
+.ltow { width: 300px; padding-left: 5px; padding-right: 5px; text-align: le=
+ft; }
+
+.ltow #ad-vert { padding-left: 0px; }
+
+.rtow { padding-left: 5px; padding-right: 5px; width: 300px; }
+
+.vert-ad { margin-bottom: 1em; }
+
+.square-fix-ad { }
+
+.square-resp-ad { }
+
+.hor-fix-ad { }
+
+.ad-top { }
+
+.ad-mid { }
+
+.ad-bot { }
+
+.ad-rtow { }
+
+.content { border-left: 1px solid rgb(235, 235, 235); border-right: 1px sol=
+id rgb(235, 235, 235); padding: 5px 20px; background: white; text-align: le=
+ft; min-width: 50px; }
+
+.container { display: grid; gap: 0px; place-content: center; margin-left: a=
+uto; margin-right: auto; }
+
+div.cols-3 { column-count: 3; }
+
+div.cols-2 { column-count: 2; }
+
+div.cols-2 li { list-style-type: none; }
+
+.cols-3 h2:first-child { margin: 0px; padding: 0px; }
+
+div.cols-2 ul { padding-left: 0px; }
+
+.cols-2 ul:first-child { margin: 0px; padding: 0px; }
+
+div.cols-3 li { list-style-type: none; }
+
+div.cols-3 ul { padding-left: 0px; }
+
+@media (max-width: 769px) {
+  .container { display: grid; margin-left: 0px; margin-right: 0px; }
+  .ltow { display: none; }
+  .rtow { display: none; }
+}
+
+@media (min-width: 770px) and (max-width: 1389px) {
+  .content { width: 770px; }
+  .container { display: grid; grid-template-columns: 770px; }
+  .ltow { display: none; }
+  .rtow { display: none; }
+}
+
+@media (min-width: 1390px) {
+  .content { width: 730px; }
+  .container { display: grid; grid-template-columns: 310px 770px 310px; }
+  .ltow { display: block; }
+  .rtow { display: block; }
+}
+------MultipartBoundary--OXqRTnEO886aRuClfoo5FnkBIoXDCEfeHS5OOTWFkP------
